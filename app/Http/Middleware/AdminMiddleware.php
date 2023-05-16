@@ -16,10 +16,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->auth==1) {
+        if (auth()->user()->auth==2) {
             return $next($request);
         }
-        elseif (auth()->user()->auth==2){
+        elseif (auth()->user()->auth==1){
             return redirect('/dashboard');
         }
         elseif (auth()->user()->auth==0){
