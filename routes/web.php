@@ -22,7 +22,6 @@ Route::middleware([ 'auth:sanctum',
     Route::get('viviendas', function () {
     return view('catalogos.vivienda');
     });
-
 //usuario no autorizado
 Route::middleware(['auth','userN'])->group(function (){
     Route::resource('user/no/auth',App\Http\Controllers\User_No_AuthController::class);
@@ -65,3 +64,6 @@ Route::middleware(['auth','admin'])->group(function (){
     Route::resource("admin", \App\Http\Controllers\AdminController::class);
 });
 // Route::get('vistas/registro-caso-vistima',[])
+ //Route::url('chatbot', function () {
+   // return view('chatbot.chatbot');
+    //});
