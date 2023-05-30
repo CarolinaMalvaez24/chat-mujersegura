@@ -56,6 +56,8 @@
             <!-- Dropdown -->
 
             <li><a href="contacts.html">Contactos</a></li>
+            <li><a href="chatbot">Chat</a></li>
+
 
 
           </ul>

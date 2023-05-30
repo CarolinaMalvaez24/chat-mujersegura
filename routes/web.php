@@ -8,6 +8,7 @@ Route::get('/', function () {
    // return view('welcome');
 });
 
+;
 Route::middleware([ 'auth:sanctum',
     config('jetstream.auth_session'),'verified'
 ])->group(function () {
@@ -22,6 +23,16 @@ Route::middleware([ 'auth:sanctum',
     Route::get('viviendas', function () {
     return view('catalogos.vivienda');
     });
+
+
+    Route::get('chatbot', function () {
+        return view('Chatbot.chatbot');
+        });
+    
+    Route::get('idiomas', function () {
+   return view('Idioma.idioma');
+     });
+
 //usuario no autorizado
 Route::middleware(['auth','userN'])->group(function (){
     Route::resource('user/no/auth',App\Http\Controllers\User_No_AuthController::class);
