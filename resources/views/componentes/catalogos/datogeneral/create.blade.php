@@ -180,7 +180,7 @@
                                         </div>
 
                                         <div class="input-div form-floating mb-3">
-                                            <input type="text" required require  name="curp" id="curp" class="form-control"  placeholder="Curp">
+                                            <input type="text"name="curp" id="curp" class="form-control"  placeholder="Curp">
                                             <label for="curp">Curp / Jonko</label>
                                         </div>
                                     </div>
