@@ -19,7 +19,7 @@ t<x-guest-layout>
 
                                                     <select class="form-select" aria-label="Default select example">
                                                             <option selected>Selecciona el idioma/Ri´na k'ando jnayani ts'inda jnati´ni</option>
-                                                            <option value="mazahua">Mazahua/Ñatho</option>
+                                                            <!-- <option value="mazahua">Mazahua/Ñatho</option> -->
                                                             <option value="espanol">Español</option>
                                                     </select>
                                                     <p></p>
