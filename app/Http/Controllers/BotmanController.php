@@ -9,8 +9,6 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 
-
-
 class BotmanController extends Controller
 {
     public function enterRequest()
@@ -22,7 +20,7 @@ class BotmanController extends Controller
         });
 
         $botman->hears('ayuda', function (BotMan $bot) {
-            $this->askViolence($bot);
+            $this->askViolenceType($bot);
         });
 
         $botman->listen();
@@ -35,56 +33,45 @@ class BotmanController extends Controller
             $this->say('Encantado de conocerte, '.$name.'. Si necesitas que te brindemos ayuda, solo dime "ayuda".');
         });
     }
-   public function askViolence(BotMan $bot)
+
+   public function askViolenceType(BotMan $bot)
 {
-    $bot->ask('Estoy aquí para ayudarte. ¿Qué tipo de violencia estás experimentando?', function (Answer $answer) use ($bot) {
+    $bot->ask('Estoy aquí para ayudarte. ¿Qué tipo de violencia estás experimentando? (Por favor, responde con texto)', function (Answer $answer) use ($bot) {
         $response = strtolower($answer->getText());
-        
-        if (strpos($response, 'física') !== false) {
-            $this->askPhysicalViolenceDetails($bot);
-        } elseif (strpos($response, 'emocional') !== false) {
-            $this->askEmotionalViolenceDetails($bot);
-        } elseif (strpos($response, 'verbal') !== false) {
-            $this->askVerbalViolenceDetails($bot);
-        } elseif (strpos($response, 'no estoy seguro') !== false) {
-            $this->say('Si en algún momento necesitas ayuda o tienes dudas, no dudes en contactarnos.');
-        } elseif (strpos($response, 'ninguna') !== false) {
-            $this->say('Me alegra saber que estás bien. Si tienes otras preguntas, no dudes en preguntar.');
-        } else {
-            $this->say('Lo siento, no pude entender tu respuesta. Por favor, elige una de las opciones disponibles o proporciona más detalles.');
-            $this->askViolence($bot);
+
+        switch ($response) {
+            case 'violencia física':
+                $this->ask('Por favor, proporciona más detalles sobre la violencia física que estás experimentando. ¿Dónde ocurrió? ¿Cómo te sientes al respecto?', function (Answer $answer) use ($bot) {
+                    $details = $answer->getText();
+                    
+                    $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades.');
+                });
+                break;
+            case 'violencia emocional':
+                $this->ask('Por favor, proporciona más detalles sobre la violencia emocional que estás experimentando. ¿Cómo te hace sentir? ¿Quién está involucrado?', function (Answer $answer) use ($bot) {
+                    $details = $answer->getText();
+                   
+                    $this->say('Gracias por compartir eso. Si necesitas apoyo emocional, no dudes en comunicarte con nosotros.');
+                });
+                break;
+            case 'violencia verbal':
+                $this->ask('Por favor, proporciona más detalles sobre la violencia verbal que estás experimentando. ¿Qué tipo de palabras o acciones has enfrentado? ¿Cómo te afecta?', function (Answer $answer) use ($bot) {
+                    $details = $answer->getText();
+                    
+                    $this->say('Gracias por compartir eso. Si necesitas asesoramiento, estamos aquí para ayudarte.');
+                });
+                break;
+            case 'no estoy seguro/a':
+                $this->say('Si en algún momento necesitas ayuda o tienes dudas, no dudes en contactarnos.');
+                break;
+            case 'ninguna':
+                $this->say('Me alegra saber que estás bien. Si tienes otras preguntas, no dudes en preguntar.');
+                break;
+            default:
+                $this->say('Lo siento, no pude entender tu respuesta. Por favor, responde con "violencia física," "violencia emocional," "violencia verbal," "no estoy seguro/a," o "ninguna."');
+                $this->askViolenceType($bot);
         }
     });
 }
-
-
-public function askPhysicalViolenceDetails(BotMan $bot)
-{
-    $bot->ask('Por favor, proporciona más detalles sobre la violencia física que estás experimentando. ¿Dónde ocurrió? ¿Cómo te sientes al respecto?', function (Answer $answer) use ($bot) {
-        $details = $answer->getText();
-        // Puedes manejar la respuesta del usuario aquí
-        $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades.');
-    });
-}
-
-public function askEmotionalViolenceDetails(BotMan $bot)
-{
-    $bot->ask('Por favor, proporciona más detalles sobre la violencia emocional que estás experimentando. ¿Cómo te hace sentir? ¿Quién está involucrado?', function (Answer $answer) use ($bot) {
-        $details = $answer->getText();
-        // Puedes manejar la respuesta del usuario aquí
-        $this->say('Gracias por compartir eso. Si necesitas apoyo emocional, no dudes en comunicarte con nosotros.');
-    });
-}
-
-public function askVerbalViolenceDetails(BotMan $bot)
-{
-    $bot->ask('Por favor, proporciona más detalles sobre la violencia verbal que estás experimentando. ¿Qué tipo de palabras o acciones has enfrentado? ¿Cómo te afecta?', function (Answer $answer) use ($bot) {
-        $details = $answer->getText();
-        // Puedes manejar la respuesta del usuario aquí
-        $this->say('Gracias por compartir eso. Si necesitas asesoramiento, estamos aquí para ayudarte.');
-    });
-}
-
-    
 
 }
