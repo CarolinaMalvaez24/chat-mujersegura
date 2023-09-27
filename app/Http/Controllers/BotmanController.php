@@ -64,8 +64,8 @@ class BotmanController extends Controller
                     $this->say('Gracias por compartir eso. Si necesitas asesoramiento, estamos aquí para ayudarte,solo coloca la palabra "si"');
                 });
                 break;
-            case 'no estoy seguro/a':
-                $this->say('Si en algún momento necesitas ayuda o tienes dudas, no dudes en contactarnos.');
+            case 'no lo se':
+                $this->say('Tu seguridad es lo más importante.Necesitamos que te comuniques con nostros');
                 break;
             case 'ninguna':
                 $this->say('Me alegra saber que estás bien. Si tienes otras preguntas, no dudes en preguntar.');
@@ -76,32 +76,31 @@ class BotmanController extends Controller
         }
     });
 }
-                public function askLocation(BotMan $bot)
-        {
-            $bot->ask('Por favor, ingresa el nombre de tu comunidad o zona:', function (Answer $answer) use ($bot) {
-                $community = $answer->getText();
+public function askLocation(BotMan $bot)
+{
+    $bot->ask('Por favor, ingresa el nombre de tu comunidad o zona:', function (Answer $answer) use ($bot) {
+        $response = $answer->getText();
 
-                $this->askCommunityLocation($bot, $community);
-            });
+        switch ($response) {
+            case 'Donato Guerra':
+                $this->ask('El Centro Naranja de Donato Guerra se encuentra en la siguiente dirección: Calle Porfirio Díaz s/n, 51030 Villa Donato Guerra, Estado de México.', function (Answer $answer) use ($bot) {
+                    $details = $answer->getText();
+                    
+                    $this->say('Esta institución es la más cercana a tu domicilio.');
+                });
+                break;
+            case 'Valle de Bravo':
+                $this->ask('El Centro Naranja de Valle de Bravo se encuentra en la siguiente dirección: Calle Fray Gregorio Jiménez de la Cuenca, N° 5, Col. La Costera C.P. 51200, Valle de Bravo, Estado de México. (A un costado de vidriería Núñez, Planta alta de pinturas Osel).', function (Answer $answer) use ($bot) {
+                    $details = $answer->getText();
+                   
+                    $this->say('Esta institución es la más cercana a tu domicilio.');
+                });
+                break;
+           default:
+                $this->say('Lo siento, no pude entender tu respuesta.');
+                $this->askLocation($bot);
         }
-        public function askCommunityLocation(BotMan $bot, $community)
-        {
-            $bot->ask('Gracias por proporcionar el nombre de tu comunidad, ¿puedes proporcionar tu ubicación actual o código postal en ' . $community . '?', function (Answer $answer) use ($bot, $community) {
-                $location = $answer->getText();
-
-                
-                switch (strtolower($community)) {
-                    case 'donato guerra':
-                        $this->say('El Centro Naranja de Donato Guerra se encuentra en la siguiente dirección:
-        Calle Porfirio Díaz s/n, 51030 Villa Donato Guerra, Estado de México.');
-                        break;
-                    case 'valle de bravo':
-                        $this->say('El Centro Naranja de Valle de Bravo se encuentra en la siguiente dirección:
-        Calle Fray Gregorio Jiménez de la Cuenca, N° 5, Col. La Costera C.P. 51200, Valle de Bravo, Estado de México. (A un costado de vidriería Núñez, Planta alta de pinturas Osel).');
-                        break;
-                    default:
-                        $this->say('Lo siento, no pudimos encontrar información sobre el centro de ayuda en ' . $community . '. Por favor, intenta nuevamente o contáctanos para obtener asistencia.');
-                }
-            });
-        }
+    });
 }
+}
+                        
