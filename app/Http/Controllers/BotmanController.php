@@ -22,6 +22,9 @@ class BotmanController extends Controller
         $botman->hears('ayuda', function (BotMan $bot) {
             $this->askViolenceType($bot);
         });
+        $botman->hears('si', function (BotMan $bot) {
+            $this->askLocation($bot);
+        });
 
         $botman->listen();
     }
@@ -44,21 +47,21 @@ class BotmanController extends Controller
                 $this->ask('Por favor, proporciona más detalles sobre la violencia física que estás experimentando. ¿Dónde ocurrió? ¿Cómo te sientes al respecto?', function (Answer $answer) use ($bot) {
                     $details = $answer->getText();
                     
-                    $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades.');
+                    $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades,solo coloca la palabra "si"');
                 });
                 break;
             case 'violencia emocional':
                 $this->ask('Por favor, proporciona más detalles sobre la violencia emocional que estás experimentando. ¿Cómo te hace sentir? ¿Quién está involucrado?', function (Answer $answer) use ($bot) {
                     $details = $answer->getText();
                    
-                    $this->say('Gracias por compartir eso. Si necesitas apoyo emocional, no dudes en comunicarte con nosotros.');
+                    $this->say('Gracias por compartir eso. Si necesitas apoyo emocional, no dudes en comunicarte con nosotros,solo coloca la palabra "si"');
                 });
                 break;
             case 'violencia verbal':
                 $this->ask('Por favor, proporciona más detalles sobre la violencia verbal que estás experimentando. ¿Qué tipo de palabras o acciones has enfrentado? ¿Cómo te afecta?', function (Answer $answer) use ($bot) {
                     $details = $answer->getText();
                     
-                    $this->say('Gracias por compartir eso. Si necesitas asesoramiento, estamos aquí para ayudarte.');
+                    $this->say('Gracias por compartir eso. Si necesitas asesoramiento, estamos aquí para ayudarte,solo coloca la palabra "si"');
                 });
                 break;
             case 'no estoy seguro/a':
@@ -73,5 +76,32 @@ class BotmanController extends Controller
         }
     });
 }
+                public function askLocation(BotMan $bot)
+        {
+            $bot->ask('Por favor, ingresa el nombre de tu comunidad o zona:', function (Answer $answer) use ($bot) {
+                $community = $answer->getText();
 
+                $this->askCommunityLocation($bot, $community);
+            });
+        }
+        public function askCommunityLocation(BotMan $bot, $community)
+        {
+            $bot->ask('Gracias por proporcionar el nombre de tu comunidad, ¿puedes proporcionar tu ubicación actual o código postal en ' . $community . '?', function (Answer $answer) use ($bot, $community) {
+                $location = $answer->getText();
+
+                
+                switch (strtolower($community)) {
+                    case 'donato guerra':
+                        $this->say('El Centro Naranja de Donato Guerra se encuentra en la siguiente dirección:
+        Calle Porfirio Díaz s/n, 51030 Villa Donato Guerra, Estado de México.');
+                        break;
+                    case 'valle de bravo':
+                        $this->say('El Centro Naranja de Valle de Bravo se encuentra en la siguiente dirección:
+        Calle Fray Gregorio Jiménez de la Cuenca, N° 5, Col. La Costera C.P. 51200, Valle de Bravo, Estado de México. (A un costado de vidriería Núñez, Planta alta de pinturas Osel).');
+                        break;
+                    default:
+                        $this->say('Lo siento, no pudimos encontrar información sobre el centro de ayuda en ' . $community . '. Por favor, intenta nuevamente o contáctanos para obtener asistencia.');
+                }
+            });
+        }
 }
