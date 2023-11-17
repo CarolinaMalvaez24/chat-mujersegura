@@ -37,71 +37,114 @@ class BotmanController extends Controller
         });
     }
 
-   public function askViolenceType(BotMan $bot)
-{
-    $bot->ask('Estoy aquí para ayudarte. ¿Qué tipo de violencia estás experimentando? (Por favor, responde con texto)', function (Answer $answer) use ($bot) {
-        $response = strtolower($answer->getText());
+    public function askViolenceType(BotMan $bot)
+    {
+        $bot->ask('Estoy aquí para ayudarte. ¿Qué tipo de violencia estás experimentando? (Por favor, responde con texto)', function (Answer $answer) use ($bot) {
+            $response = strtolower($answer->getText());
 
-        switch ($response) {
-            case 'violencia física':
-                $this->ask('Por favor, proporciona más detalles sobre la violencia física que estás experimentando. ¿Dónde ocurrió? ¿Cómo te sientes al respecto?', function (Answer $answer) use ($bot) {
-                    $details = $answer->getText();
-                    
-                    $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades,solo coloca la palabra "si"');
-                });
-                break;
-            case 'violencia emocional':
-                $this->ask('Por favor, proporciona más detalles sobre la violencia emocional que estás experimentando. ¿Cómo te hace sentir? ¿Quién está involucrado?', function (Answer $answer) use ($bot) {
-                    $details = $answer->getText();
-                   
-                    $this->say('Gracias por compartir eso. Si necesitas apoyo emocional, no dudes en comunicarte con nosotros,solo coloca la palabra "si"');
-                });
-                break;
-            case 'violencia verbal':
-                $this->ask('Por favor, proporciona más detalles sobre la violencia verbal que estás experimentando. ¿Qué tipo de palabras o acciones has enfrentado? ¿Cómo te afecta?', function (Answer $answer) use ($bot) {
-                    $details = $answer->getText();
-                    
-                    $this->say('Gracias por compartir eso. Si necesitas asesoramiento, estamos aquí para ayudarte,solo coloca la palabra "si"');
-                });
-                break;
-            case 'no estoy seguro/a':
-                $this->say('Si en algún momento necesitas ayuda o tienes dudas, no dudes en contactarnos.');
-                break;
-            case 'ninguna':
-                $this->say('Me alegra saber que estás bien. Si tienes otras preguntas, no dudes en preguntar.');
-                break;
-            default:
-                $this->say('Lo siento, no pude entender tu respuesta. Por favor, responde con "violencia física," "violencia emocional," "violencia verbal," "no estoy seguro/a," o "ninguna."');
-                $this->askViolenceType($bot);
-        }
-    });
+            switch ($response) {
+                case 'violencia física':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia física que estás experimentando. ¿Dónde ocurrió? ¿Cómo te sientes al respecto?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades,solo coloca la palabra "si"');
+                    });
+                    break;
+                case 'violencia fisica':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia física que estás experimentando. ¿Dónde ocurrió? ¿Cómo te sientes al respecto?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades,solo coloca la palabra "si"');
+                    });
+                    break;
+                case 'fisica':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia física que estás experimentando. ¿Dónde ocurrió? ¿Cómo te sientes al respecto?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades,solo coloca la palabra "si"');
+                    });
+                    break;
+                case 'física':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia física que estás experimentando. ¿Dónde ocurrió? ¿Cómo te sientes al respecto?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas asistencia inmediata, te recomendamos que te pongas en contacto con las autoridades,solo coloca la palabra "si"');
+                    });
+                    break;
+
+
+                case 'violencia emocional':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia emocional que estás experimentando. ¿Cómo te hace sentir? ¿Quién está involucrado?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas apoyo emocional, no dudes en comunicarte con nosotros,solo coloca la palabra "si"');
+                    });
+                    break;
+                case 'emocional':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia emocional que estás experimentando. ¿Cómo te hace sentir? ¿Quién está involucrado?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas apoyo emocional, no dudes en comunicarte con nosotros,solo coloca la palabra "si"');
+                    });
+                    break;
+                case 'Emocional':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia emocional que estás experimentando. ¿Cómo te hace sentir? ¿Quién está involucrado?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas apoyo emocional, no dudes en comunicarte con nosotros,solo coloca la palabra "si"');
+                    });
+                    break;
+                case 'violencia verbal':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia verbal que estás experimentando. ¿Qué tipo de palabras o acciones has enfrentado? ¿Cómo te afecta?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas asesoramiento, estamos aquí para ayudarte,solo coloca la palabra "si"');
+                    });
+                    break;
+                case 'verbal':
+                    $this->ask('Por favor, proporciona más detalles sobre la violencia verbal que estás experimentando. ¿Qué tipo de palabras o acciones has enfrentado? ¿Cómo te afecta?', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Gracias por compartir eso. Si necesitas asesoramiento, estamos aquí para ayudarte,solo coloca la palabra "si"');
+                    });
+                    break;
+                case 'no lo se':
+                    $this->say('Tu seguridad es lo más importante.Necesitamos que te comuniques con nostros');
+                    break;
+                case 'ninguna':
+                    $this->say('Me alegra saber que estás bien. Si tienes otras preguntas, no dudes en preguntar.');
+                    break;
+                default:
+                    $this->say('Lo siento, no pude entender tu respuesta. Por favor, responde con "violencia física," "violencia emocional," "violencia verbal," "no estoy seguro/a," o "ninguna."');
+                    $this->askViolenceType($bot);
+            }
+        });
+    }
+    public function askLocation(BotMan $bot)
+    {
+        $bot->ask('Por favor, ingresa el nombre de tu comunidad o zona:', function (Answer $answer) use ($bot) {
+            $response = $answer->getText();
+
+            switch ($response) {
+                case 'Donato Guerra':
+                    $this->ask('El Centro Naranja de Donato Guerra se encuentra en la siguiente dirección: Calle Porfirio Díaz s/n, 51030 Villa Donato Guerra, Estado de México.', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Esta institución es la más cercana a tu domicilio.');
+                    });
+                    break;
+                case 'Valle de Bravo':
+                    $this->ask('El Centro Naranja de Valle de Bravo se encuentra en la siguiente dirección: Calle Fray Gregorio Jiménez de la Cuenca, N° 5, Col. La Costera C.P. 51200, Valle de Bravo, Estado de México. (A un costado de vidriería Núñez, Planta alta de pinturas Osel).', function (Answer $answer) use ($bot) {
+                        $details = $answer->getText();
+
+                        $this->say('Esta institución es la más cercana a tu domicilio.');
+                    });
+                    break;
+                default:
+                    $this->say('Lo siento, no pude entender tu respuesta.');
+                    $this->askLocation($bot);
+            }
+        });
+    }
 }
-                public function askLocation(BotMan $bot)
-        {
-            $bot->ask('Por favor, ingresa el nombre de tu comunidad o zona:', function (Answer $answer) use ($bot) {
-                $community = $answer->getText();
 
-                $this->askCommunityLocation($bot, $community);
-            });
-        }
-        public function askCommunityLocation(BotMan $bot, $community)
-        {
-            $bot->ask('Gracias por proporcionar el nombre de tu comunidad, ¿puedes proporcionar tu ubicación actual o código postal en ' . $community . '?', function (Answer $answer) use ($bot, $community) {
-                $location = $answer->getText();
-
-                
-                switch (strtolower($community)) {
-                    case 'donato guerra':
-                        $this->say('El Centro Naranja de Donato Guerra se encuentra en la siguiente dirección:
-        Calle Porfirio Díaz s/n, 51030 Villa Donato Guerra, Estado de México.');
-                        break;
-                    case 'valle de bravo':
-                        $this->say('El Centro Naranja de Valle de Bravo se encuentra en la siguiente dirección:
-        Calle Fray Gregorio Jiménez de la Cuenca, N° 5, Col. La Costera C.P. 51200, Valle de Bravo, Estado de México. (A un costado de vidriería Núñez, Planta alta de pinturas Osel).');
-                        break;
-                    default:
-                        $this->say('Lo siento, no pudimos encontrar información sobre el centro de ayuda en ' . $community . '. Por favor, intenta nuevamente o contáctanos para obtener asistencia.');
-                }
-            });
-        }
-}
